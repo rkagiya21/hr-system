@@ -43,10 +43,30 @@ export default function Employees() {
 
   const alerts = list.filter(e => expiryAlert(e.card_expiry));
 
+
+  const exportCSV = () => {
+    const headers = ['社員番号', '名前', '雇用形態', '国籍', 'ビザ種別', '在留期限'];
+    const rows = list.map((e: any) => [
+      e.employee_id, e.name, e.employment_type, e.nationality, e.visa_type, e.card_expiry
+    ]);
+    const csv = [headers, ...rows].map(r => r.join(',')).join('\n');
+    const bom = '\uFEFF';
+    const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = '社員一覧.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div style={{ padding:'24px' }}>
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'16px' }}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"20px"}}>
         <h1 style={{ fontSize:'22px', fontWeight:'500' }}>社員管理</h1>
+        <button onClick={exportCSV} style={{background:"#16a34a",color:"white",border:"none",borderRadius:"8px",padding:"10px 20px",cursor:"pointer",fontWeight:"600"}}>CSVエクスポート</button>
+      </div>
         <button onClick={() => setShowForm(!showForm)} style={{ padding:'8px 16px', background:'#1d4ed8', color:'#fff', border:'none', borderRadius:'6px', cursor:'pointer', fontSize:'14px' }}>
           ＋ 社員追加
         </button>
