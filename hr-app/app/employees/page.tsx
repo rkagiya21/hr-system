@@ -63,16 +63,12 @@ export default function Employees() {
   return (
     <div style={{ padding:'24px' }}>
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'16px' }}>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"20px"}}>
-        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'20px'}}>
+        
         <h1 style={{ fontSize:'22px', fontWeight:'500' }}>社員管理</h1>
         <button onClick={exportCSV} style={{background:'#16a34a',color:'white',border:'none',borderRadius:'8px',padding:'10px 20px',cursor:'pointer',fontWeight:'600',fontSize:'14px'}}>📥 CSVエクスポート</button>
-      </div>
-      </div>
         <button onClick={() => setShowForm(!showForm)} style={{ padding:'8px 16px', background:'#1d4ed8', color:'#fff', border:'none', borderRadius:'6px', cursor:'pointer', fontSize:'14px' }}>
           ＋ 社員追加
         </button>
-        <button onClick={exportCSV} style={{background:'#16a34a',color:'white',border:'none',borderRadius:'8px',padding:'8px 16px',cursor:'pointer',fontWeight:'600',fontSize:'14px'}}>📥 CSVエクスポート</button>
       </div>
 
       {alerts.length > 0 && (
