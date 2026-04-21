@@ -18,10 +18,10 @@ export default function RootLayout({
             <p style={{ color: "#9ca3af", fontSize: "11px", margin: "0" }}>HRシステム</p>
             <p style={{ color: "#fff", fontSize: "16px", fontWeight: "500", margin: "4px 0 0" }}>v3.0</p>
           </div>
-          <a href="/" style={{ display: "block", padding: "10px 16px", color: "#d1d5db", textDecoration: "none", fontSize: "14px" }}>👥 社員管理</a>
+          <a href="/employees" style={{ display: "block", padding: "10px 16px", color: "#d1d5db", textDecoration: "none", fontSize: "14px" }}>👥 社員管理</a>
           <a href="/attendance" style={{ display: "block", padding: "10px 16px", color: "#d1d5db", textDecoration: "none", fontSize: "14px" }}>📅 勤怠OCR</a>
-          <a href="/payroll" style={{ display: "block", padding: "10px 16px", color: "#d1d5db", textDecoration: "none", fontSize: "14px" }}>💰 給与計算</a>
-          <a href="/portal" style={{ display: "block", padding: "10px 16px", color: "#d1d5db", textDecoration: "none", fontSize: "14px" }}>👤 スタッフポータル</a>
+          <a href="/shifts" style={{ display: "block", padding: "10px 16px", color: "#d1d5db", textDecoration: "none", fontSize: "14px" }}>📅 シフト管理</a><a href="/payroll" style={{ display: "block", padding: "10px 16px", color: "#d1d5db", textDecoration: "none", fontSize: "14px" }}>💰 給与計算</a>
+          <a href="/" style={{ display: "block", padding: "10px 16px", color: "#d1d5db", textDecoration: "none", fontSize: "14px" }}>👤 スタッフポータル</a>
         </nav>
         <main style={{ marginLeft: "200px", flex: 1, minHeight: "100vh" }}>
           {children}
