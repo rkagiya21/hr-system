@@ -69,6 +69,7 @@ export default function Employees() {
         <button onClick={() => setShowForm(!showForm)} style={{ padding:'8px 16px', background:'#1d4ed8', color:'#fff', border:'none', borderRadius:'6px', cursor:'pointer', fontSize:'14px' }}>
           ＋ 社員追加
         </button>
+          <button onClick={exportCSV} style={{background:'#16a34a',color:'white',border:'none',borderRadius:'8px',padding:'8px 16px',cursor:'pointer',fontWeight:'600',fontSize:'14px',marginLeft:'8px'}}>📥 CSVエクスポート</button>
       </div>
 
       {alerts.length > 0 && (
