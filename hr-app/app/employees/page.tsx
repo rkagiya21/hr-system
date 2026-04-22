@@ -127,3 +127,4 @@ export default function Employees() {
     </div>
   );
 }
+export const dynamic = 'force-dynamic';
