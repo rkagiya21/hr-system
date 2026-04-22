@@ -48,7 +48,8 @@ export default function Attendance() {
         body: JSON.stringify({ image: base64, mediaType })
       });
       const data = await res.json();
-      const text = data.content[0].text.trim();
+      if (!data.content || data.content[0].type !== "text") throw new Error(JSON.stringify(data));
+    const text = data.content[0].text.trim();
       const json = JSON.parse(text.replace(/```json|```/g, '').trim());
       setResults(Array.isArray(json) ? json : [json]);
     } catch (e) {
