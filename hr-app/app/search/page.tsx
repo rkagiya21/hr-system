@@ -2,7 +2,13 @@
 import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
-const sb = createClient('https://jmzrdwqcimzwfbifdgzz.supabase.co','sb_publishable_gSMXIGWlR5Ig4BJV9FVlsw_-mFmfc_n');
+const getSupabase = () => createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
+
+
 
 export default function Search() {
   const [list, setList] = useState<any[]>([]);
@@ -12,7 +18,7 @@ export default function Search() {
   const [nationality, setNationality] = useState('');
 
   useEffect(() => {
-    sb.from('employees').select('*').then(({ data }) => {
+    getSupabase().from('employees').select('*').then(({ data }) => {
       setList(data || []);
       setFiltered(data || []);
     });

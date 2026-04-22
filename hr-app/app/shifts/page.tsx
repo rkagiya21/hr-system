@@ -2,7 +2,13 @@
 import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
-const sb = createClient('https://jmzrdwqcimzwfbifdgzz.supabase.co','sb_publishable_gSMXIGWlR5Ig4BJV9FVlsw_-mFmfc_n');
+const getSupabase = () => createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
+
+
 
 export default function Shifts() {
   const [employees, setEmployees] = useState<any[]>([]);
@@ -12,8 +18,8 @@ export default function Shifts() {
   const [form, setForm] = useState({ employee_id:'', シフト日:'', 開始時間:'', 終了時間:'' });
 
   const load = async () => {
-    const { data: emps } = await sb.from('employees').select('id, last_name, first_name');
-    const { data: sh } = await sb.from('shifts').select('*, employees(last_name, first_name)').order('シフト日', { ascending: true });
+    const { data: emps } = await getSupabase().from('employees').select('id, last_name, first_name');
+    const { data: sh } = await getSupabase().from('shifts').select('*, employees(last_name, first_name)').order('シフト日', { ascending: true });
     setEmployees(emps || []);
     setShifts(sh || []);
   };
@@ -22,7 +28,7 @@ export default function Shifts() {
 
   const save = async () => {
     setSaving(true);
-    await sb.from('shifts').insert([{ ...form, ステータス: '未確定' }]);
+    await getSupabase().from('shifts').insert([{ ...form, ステータス: '未確定' }]);
     await load();
     setShowForm(false);
     setForm({ employee_id:'', シフト日:'', 開始時間:'', 終了時間:'' });
