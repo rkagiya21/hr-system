@@ -40,6 +40,9 @@ export default function RootLayout({
             <Link href="/portal" className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
               <span>👤</span> スタッフポータル
             </Link>
+            <Link href="/fax" className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+              <span>📠</span> FAX読み取り
+            </Link>
             <Link href="/search" className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
               <span>🔍</span> 検索
             </Link>
