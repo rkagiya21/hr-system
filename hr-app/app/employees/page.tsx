@@ -1,10 +1,11 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
 
-const sb = createClient(
+
+const sb = typeof window !== "undefined" ? require("@supabase/supabase-js").createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+) : null;
 );
 
 const expiryAlert = (d: string) => {
@@ -127,4 +128,3 @@ export default function Employees() {
     </div>
   );
 }
-export const dynamic = 'force-dynamic';
