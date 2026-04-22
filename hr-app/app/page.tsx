@@ -66,6 +66,10 @@ return(
 <p style={{margin:'0',fontSize:'20px'}}>💰</p>
 <p style={{margin:'4px 0 0',fontSize:'13px'}}>給与</p>
 </a>
+      <a href="/ocr-results" style={{background:"#7c3aed",color:"#fff",borderRadius:"12px",padding:"16px",textAlign:"center",textDecoration:"none"}}>
+        <p style={{margin:"0",fontSize:"20px"}}>📋</p>
+        <p style={{margin:"4px 0 0",fontSize:"13px"}}>LINE OCR結果</p>
+      </a>
 </div>
 </div>
 </div>
