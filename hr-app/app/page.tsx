@@ -58,8 +58,7 @@ return(
 <p style={{margin:'0',fontSize:'20px'}}>👥</p>
 <p style={{margin:'4px 0 0',fontSize:'13px'}}>社員管理</p>
 </a>
-<a href="/attendance" style={{background:'#1d4ed8',color:'#fff',borderRadius:'12px',padding:'16px',textAlign:'center',textDecoration:'none'}}>
-<p style={{margin:'0',fontSize:'20px'}}>📅</p>
+<a href="/attendance" style={{background:'#1d4ed8',color:'#fff',borderRadius:'12px',padding:'16px',textAlign:'center',textDecoration:'non
 <p style={{margin:'4px 0 0',fontSize:'13px'}}>勤怠</p>
 </a>
 <a href="/payroll" style={{background:'#16a34a',color:'#fff',borderRadius:'12px',padding:'16px',textAlign:'center',textDecoration:'none'}}>
