@@ -26,7 +26,22 @@ export default function Attendance() {
     if (!image) return;
     setLoading(true);
     try {
-      const base64 = image.split(',')[1];
+      // Resize image before sending
+    const resized = await new Promise<string>((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const max = 1024;
+        let w = img.width, h = img.height;
+        if (w > max) { h = h * max / w; w = max; }
+        if (h > max) { w = w * max / h; h = max; }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext("2d")!.drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL("image/jpeg", 0.7).split(",")[1]);
+      };
+      img.src = image;
+    });
+    const base64 = resized;
       const res = await fetch('/api/ocr', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
