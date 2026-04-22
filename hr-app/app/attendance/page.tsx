@@ -30,7 +30,7 @@ export default function Attendance() {
       const res = await fetch('/api/ocr', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ base64, mediaType })
+        body: JSON.stringify({ image: base64, mediaType })
       });
       const data = await res.json();
       const text = data.content[0].text.trim();
