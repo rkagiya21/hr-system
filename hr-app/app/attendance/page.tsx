@@ -1,23 +1,14 @@
 'use client';
 import { useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
-
-const sb = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
 
 export default function Attendance() {
   const [image, setImage] = useState<string | null>(null);
-  const [mediaType, setMediaType] = useState<string>('image/jpeg');
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<any[]>([]);
-  const [error, setError] = useState<string>('');
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    setMediaType(file.type || 'image/jpeg');
     const reader = new FileReader();
     reader.onload = (ev) => setImage(ev.target?.result as string);
     reader.readAsDataURL(file);
@@ -43,7 +34,6 @@ export default function Attendance() {
   const handleOCR = async () => {
     if (!image) return;
     setLoading(true);
-    setError('');
     try {
       const base64 = await resizeImage(image);
       const res = await fetch('/api/ocr', {
@@ -52,15 +42,12 @@ export default function Attendance() {
         body: JSON.stringify({ image: base64, mediaType: 'image/jpeg' })
       });
       const data = await res.json();
-      if (!data.content || !data.content[0]) {
-        throw new Error(JSON.stringify(data));
-      }
+      if (!data.content?.[0]?.text) throw new Error(JSON.stringify(data));
       const text = data.content[0].text.trim();
       const clean = text.replace(/```json|```/g, '').trim();
       const json = JSON.parse(clean);
       setResults(Array.isArray(json) ? json : [json]);
     } catch (e: any) {
-      setError(e.message);
       alert('読み取りに失敗しました: ' + e.message);
     } finally {
       setLoading(false);
