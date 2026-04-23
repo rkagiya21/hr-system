@@ -5,15 +5,17 @@ import { createClient } from '@supabase/supabase-js';
 
 type Employee = {
   id: string;
-  name: string;
-  name_kana?: string;
+  employee_code?: string;
+  last_name?: string;
+  first_name?: string;
+  last_name_kana?: string;
+  first_name_kana?: string;
   nationality?: string;
   visa_type?: string;
-  visa_expiry?: string;
+  card_expiry?: string;
   phone?: string;
   email?: string;
-  company?: string;
-  status?: string;
+  employment_type?: string;
 };
 
 export default function EmployeesPage() {
@@ -33,7 +35,7 @@ export default function EmployeesPage() {
         const { data, error } = await supabase
           .from('employees')
           .select('*')
-          .order('name', { ascending: true });
+          ;
 
         if (error) throw error;
         setEmployees(data || []);
@@ -64,10 +66,10 @@ export default function EmployeesPage() {
   };
 
   const filtered = employees.filter(e =>
-    e.name?.includes(search) ||
-    e.name_kana?.includes(search) ||
+    (e.last_name + ' ' + e.first_name)?.includes(search) ||
+    (e.last_name_kana + ' ' + e.first_name_kana)?.includes(search) ||
     e.nationality?.includes(search) ||
-    e.company?.includes(search)
+    ''.includes(search)
   );
 
   const getVisaStatus = (expiry?: string) => {
@@ -126,17 +128,17 @@ export default function EmployeesPage() {
               </tr>
             ) : (
               filtered.map(emp => {
-                const visa = getVisaStatus(emp.visa_expiry);
+                const visa = getVisaStatus(emp.card_expiry);
                 return (
                   <tr key={emp.id} className="hover:bg-gray-50">
                     <td className="px-4 py-3">
-                      <div className="font-medium">{emp.name}</div>
-                      {emp.name_kana && <div className="text-gray-400 text-xs">{emp.name_kana}</div>}
+                      <div className="font-medium">{emp.last_name} {emp.first_name}</div>
+                      {emp.last_name_kana && <div className="text-gray-400 text-xs">{emp.last_name_kana} {emp.first_name_kana}</div>}
                     </td>
                     <td className="px-4 py-3">{emp.nationality || '-'}</td>
                     <td className="px-4 py-3">{emp.visa_type || '-'}</td>
                     <td className="px-4 py-3">
-                      <div>{emp.visa_expiry || '-'}</div>
+                      <div>{emp.card_expiry || '-'}</div>
                       {visa && (
                         <span className={`text-xs px-2 py-0.5 rounded-full ${visa.color}`}>
                           {visa.label}
@@ -144,8 +146,8 @@ export default function EmployeesPage() {
                       )}
                     </td>
                     <td className="px-4 py-3">{emp.phone || '-'}</td>
-                    <td className="px-4 py-3">{emp.company || '-'}</td>
-                    <td className="px-4 py-3">{emp.status || '-'}</td>
+                    <td className="px-4 py-3">{emp.employment_type || '-'}</td>
+                    <td className="px-4 py-3">{emp.employee_code || '-'}</td>
                   </tr>
                 );
               })
